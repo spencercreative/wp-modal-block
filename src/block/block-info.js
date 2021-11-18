@@ -39,6 +39,7 @@ const { Fragment } = wp.element;
 registerBlockType( 'scc/modal-info', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Modal Info', 'wp-modal-block' ), // Block title.
+	description: __( 'Content that appears on screen before the toggle button', 'wp-modal-block' ),
 	icon: 'info-outline', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
@@ -55,6 +56,7 @@ registerBlockType( 'scc/modal-info', {
 			default: 'Toggle modal',
 		},
 		lock: {
+			remove: true,
 			move: true,
 		},
 	},
@@ -96,9 +98,7 @@ registerBlockType( 'scc/modal-info', {
 					</PanelBody>
 				</InspectorControls>
 				<InnerBlocks
-					// renderAppender={ () => (
-					// 	<InnerBlocks.ButtonBlockAppender />
-					// ) }
+					renderAppender={ InnerBlocks.ButtonBlockAppender }
 				/>
 			</Fragment>
 		);
@@ -121,7 +121,7 @@ registerBlockType( 'scc/modal-info', {
 		return (
 			<div { ...blockProps }>
 				<InnerBlocks.Content />
-				<Button>{ attributes.buttonText }</Button>
+				<Button className="scc-modal-info__open">{ attributes.buttonText }</Button>
 			</div>
 		);
 	},

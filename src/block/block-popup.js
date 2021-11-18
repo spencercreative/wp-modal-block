@@ -18,7 +18,7 @@ const {
 	InspectorControls,
 	// ColorPalette,
 } = wp.blockEditor;
-const { TextControl, Panel, PanelBody, PanelRow } = wp.components;
+const { TextControl, Panel, PanelBody, PanelRow, Button } = wp.components;
 
 // const id = cuid();
 
@@ -38,6 +38,7 @@ const { TextControl, Panel, PanelBody, PanelRow } = wp.components;
 registerBlockType( 'scc/modal-popup', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Modal Popup', 'wp-modal-block' ), // Block title.
+	description: __( 'Content that appears in the modal popup when toggled', 'wp-modal-block' ),
 	icon: 'slides', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
@@ -54,6 +55,7 @@ registerBlockType( 'scc/modal-popup', {
 			default: 'Toggle modal',
 		},
 		lock: {
+			remove: true,
 			move: true,
 		},
 	},
@@ -72,9 +74,7 @@ registerBlockType( 'scc/modal-popup', {
 	edit: ( { attributes, setAttributes } ) => {
 		return (
 			<InnerBlocks
-				renderAppender={ () => (
-					<InnerBlocks.ButtonBlockAppender />
-				) }
+				renderAppender={ InnerBlocks.ButtonBlockAppender }
 			/>
 		);
 	},
@@ -95,11 +95,8 @@ registerBlockType( 'scc/modal-popup', {
 
 		return (
 			<div { ...blockProps }>
-				<div className="wp-block-button">
-					<button className="wp-block-button__link">{ attributes.buttonText || 'Toggle modal' }</button>
-				</div>
-				<div className="scc-modal-block__container">
-					<button className="scc-modal-block__close">Close</button>
+				<div className="scc-modal-popup__container">
+					<Button className="scc-modal-popup__close">Close</Button>
 					<InnerBlocks.Content />
 				</div>
 			</div>

@@ -152,7 +152,7 @@ registerBlockType( 'scc/modal-container', {
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 					template={ TEMPLATE }
-					templateLock="all"
+					renderAppender={ false }
 				/>
 			</Fragment>
 		);

@@ -4,9 +4,36 @@
  * CSS for both Frontend+Backend.
  */
 
-.wp-block-scc-modal-block  {
+.wp-block-scc-modal-container {
 
-	.scc-modal-block__popup {
-		display: none;
+}
+
+.wp-block-scc-modal-info {
+
+}
+
+.wp-block-scc-modal-popup {
+	align-items: center;
+	background-color: rgba(#000000, .75);
+	display: none;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	padding: 1rem;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 99999;
+
+	.scc-modal-popup__container {
+		background-color: $white;
+		border-radius: 3px;
+		max-width: 600px;
+		padding: 1rem;
+		width: 100%;
 	}
+}
+
+.modal-open .wp-block-scc-modal-popup {
+	display: flex;
 }

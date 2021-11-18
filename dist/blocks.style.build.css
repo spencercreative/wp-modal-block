@@ -9,5 +9,27 @@
  *
  * CSS for both Frontend+Backend.
  */
-.wp-block-scc-modal-block .scc-modal-block__popup {
-  display: none; }
+.wp-block-scc-modal-popup {
+  -ms-flex-align: center;
+      align-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: none;
+  height: 100%;
+  -ms-flex-pack: center;
+      justify-content: center;
+  left: 0;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999; }
+  .wp-block-scc-modal-popup .scc-modal-popup__container {
+    background-color: #ffffff;
+    border-radius: 3px;
+    max-width: 600px;
+    padding: 1rem;
+    width: 100%; }
+
+.modal-open .wp-block-scc-modal-popup {
+  display: -ms-flexbox;
+  display: flex; }
