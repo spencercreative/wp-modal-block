@@ -10,10 +10,32 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
-.wp-block-cgb-block-modal-block {
-  background: #bada55;
-  border: 0.2rem solid #292929;
-  color: #292929;
+.components-panel fieldset {
+  width: 100%; }
+
+.blocks-base-control__label {
+  margin-bottom: 12px; }
+
+.wp-block[data-type="scc/modal-container"] > .block-editor-inner-blocks {
+  background: #eeeeee;
   margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem; }
+  padding: 1rem; }
+  .wp-block[data-type="scc/modal-container"] > .block-editor-inner-blocks .block-editor-block-list__layout > *:first-child {
+    margin-top: 0; }
+  .wp-block[data-type="scc/modal-container"] > .block-editor-inner-blocks .block-editor-block-list__layout > *:last-child {
+    margin-bottom: 0; }
+
+.wp-block[data-type="scc/modal-info"] > .block-editor-inner-blocks {
+  margin: 0 auto;
+  padding: 1rem; }
+
+.wp-block[data-type="scc/modal-popup"] {
+  display: none; }
+  .wp-block[data-type="scc/modal-popup"] > .block-editor-inner-blocks {
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 1rem; }
+
+.wp-block.is-selected[data-type="scc/modal-container"] .wp-block[data-type="scc/modal-popup"],
+.wp-block.has-child-selected[data-type="scc/modal-container"] .wp-block[data-type="scc/modal-popup"] {
+  display: block; }

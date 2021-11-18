@@ -75,16 +75,77 @@ function modal_block_cgb_block_assets() { // phpcs:ignore
 	 * @since 1.16.0
 	 */
 	register_block_type(
-		'cgb/block-modal-block', array(
+		'scc/modal-block', array(
 			// Enqueue blocks.style.build.css on both frontend & backend.
 			'style'         => 'modal_block-cgb-style-css',
 			// Enqueue blocks.build.js in the editor only.
 			'editor_script' => 'modal_block-cgb-block-js',
 			// Enqueue blocks.editor.build.css in the editor only.
 			'editor_style'  => 'modal_block-cgb-block-editor-css',
+			'render_callback' => 'block_render_callback',
 		)
 	);
+
+	function block_render_callback ($attributes, $content) {
+		$id = $attributes['selectedUser'];
+		$first_name = get_the_author_meta('first_name', $id);
+		$last_name = get_the_author_meta('last_name', $id);
+		$email = get_the_author_meta('email', $id);
+		$full_name = $first_name . ' ' . $last_name;
+		$bio = get_the_author_meta('description', $id);
+		$avatar = get_simple_local_avatar($id);
+		$position = get_the_author_meta('position', $id);
+		?>
+		<div class="wp-block wp-block-scc-modal-block">
+			<?php echo $avatar; ?>
+			<h3><?php echo __($full_name, 'wp-modal-block'); ?></h3>
+			<p><?php echo __($position, 'wp-modal-block'); ?></p>
+			<button class="wp-button-block">
+				<?php echo __('Meet ' . $first_name, 'wp-modal-block'); ?>
+			</button>
+			<div class="scc-modal-block__popup">
+				<?php echo $avatar; ?>
+				<h3><?php echo __($full_name, 'wp-modal-block'); ?></h3>
+				<p><?php echo __($bio, 'wp-modal-block'); ?></p>
+				<div class="wp-block-button scc-modal-block__contact">
+					<a class="wp-block-button__link" href="mailto:<?php echo $email; ?>" target="_blank">
+						<?php echo __('Contact ' . $first_name, 'wp-modal-block'); ?>
+					</a>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
 }
 
 // Hook: Block assets.
 add_action( 'init', 'modal_block_cgb_block_assets' );
+
+add_action( 'show_user_profile', 'extra_user_profile_fields' );
+add_action( 'edit_user_profile', 'extra_user_profile_fields' );
+function extra_user_profile_fields( $user ) { ?>
+    <h3><?php _e("Extra profile information", "blank"); ?></h3>
+
+    <table class="form-table">
+    <tr>
+        <th><label for="position"><?php _e("Position"); ?></label></th>
+        <td>
+            <input type="text" name="position" id="position" value="<?php echo esc_attr( get_the_author_meta( 'position', $user->ID ) ); ?>" class="regular-text" /><br />
+            <span class="description"><?php _e("Please enter your position / job title."); ?></span>
+        </td>
+    </tr>
+    </table>
+<?php }
+
+add_action( 'personal_options_update', 'save_extra_user_profile_fields' );
+add_action( 'edit_user_profile_update', 'save_extra_user_profile_fields' );
+function save_extra_user_profile_fields( $user_id ) {
+    if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
+        return;
+    }
+
+    if ( !current_user_can( 'edit_user', $user_id ) ) {
+        return false;
+    }
+    update_user_meta( $user_id, 'position', $_POST['position'] );
+}

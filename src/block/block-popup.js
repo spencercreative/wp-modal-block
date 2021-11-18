@@ -9,8 +9,18 @@
 import './editor.scss';
 import './style.scss';
 
+// import cuid from 'cuid';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const {
+	InnerBlocks,
+	useBlockProps,
+	InspectorControls,
+	// ColorPalette,
+} = wp.blockEditor;
+const { TextControl, Panel, PanelBody, PanelRow } = wp.components;
+
+// const id = cuid();
 
 /**
  * Register: aa Gutenberg Block.
@@ -25,16 +35,28 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'spencerwebsites/block-modal-block', {
+registerBlockType( 'scc/modal-popup', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'Modal' ), // Block title.
-	icon: 'page', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	title: __( 'Modal Popup', 'wp-modal-block' ), // Block title.
+	icon: 'slides', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__( 'Modal Block' ),
-		__( 'modal-block' ),
-		__( 'create-guten-block' ),
+		__( 'modal', 'wp-modal-block' ),
+		__( 'popup', 'wp-modal-block' ),
+		__( 'window', 'wp-modal-block' ),
 	],
+	parent: [ 'scc/modal-container' ],
+	attributes: {
+		buttonText: {
+			type: 'string',
+			source: 'text',
+			selector: 'button',
+			default: 'Toggle modal',
+		},
+		lock: {
+			move: true,
+		},
+	},
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -47,23 +69,13 @@ registerBlockType( 'spencerwebsites/block-modal-block', {
 	 * @param {Object} props Props.
 	 * @returns {Mixed} JSX Component.
 	 */
-	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-modal-block'></p>.
+	edit: ( { attributes, setAttributes } ) => {
 		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>modal-block</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
-			</div>
+			<InnerBlocks
+				renderAppender={ () => (
+					<InnerBlocks.ButtonBlockAppender />
+				) }
+			/>
 		);
 	},
 
@@ -78,21 +90,18 @@ registerBlockType( 'spencerwebsites/block-modal-block', {
 	 * @param {Object} props Props.
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
-	save: ( props ) => {
+	save: ( { attributes } ) => {
+		const blockProps = useBlockProps.save();
+
 		return (
-			<div className={ props.className }>
-				<p>— Hello from the frontend.</p>
-				<p>
-					CGB BLOCK: <code>modal-block</code> is a new Gutenberg block.
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
+			<div { ...blockProps }>
+				<div className="wp-block-button">
+					<button className="wp-block-button__link">{ attributes.buttonText || 'Toggle modal' }</button>
+				</div>
+				<div className="scc-modal-block__container">
+					<button className="scc-modal-block__close">Close</button>
+					<InnerBlocks.Content />
+				</div>
 			</div>
 		);
 	},
