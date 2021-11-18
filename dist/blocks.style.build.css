@@ -9,15 +9,21 @@
  *
  * CSS for both Frontend+Backend.
  */
+.scc-modal-block--active {
+  height: 100%;
+  overflow: hidden;
+  width: 100%; }
+
 .wp-block-scc-modal-popup {
-  -ms-flex-align: center;
-      align-items: center;
+  -ms-flex-align: start;
+      align-items: start;
   background-color: rgba(0, 0, 0, 0.75);
   display: none;
   height: 100%;
   -ms-flex-pack: center;
       justify-content: center;
   left: 0;
+  overflow-y: scroll;
   padding: 1rem;
   position: fixed;
   top: 0;
@@ -29,6 +35,10 @@
     max-width: 600px;
     padding: 1rem;
     width: 100%; }
+  .wp-block-scc-modal-popup .scc-modal-popup__close-container {
+    text-align: right; }
+  .wp-block-scc-modal-popup .scc-modal-popup__close {
+    padding: 3px 10px; }
 
 .modal-open .wp-block-scc-modal-popup {
   display: -ms-flexbox;

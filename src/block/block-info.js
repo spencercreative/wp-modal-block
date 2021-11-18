@@ -9,7 +9,6 @@
 import './editor.scss';
 import './style.scss';
 
-// import cuid from 'cuid';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const {
@@ -18,10 +17,8 @@ const {
 	InspectorControls,
 	// ColorPalette,
 } = wp.blockEditor;
-const { TextControl, Panel, PanelBody, PanelRow, Button } = wp.components;
+const { TextControl, PanelBody, PanelRow, Button } = wp.components;
 const { Fragment } = wp.element;
-
-// const id = cuid();
 
 /**
  * Register: aa Gutenberg Block.

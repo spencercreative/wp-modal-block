@@ -9,18 +9,10 @@
 import './editor.scss';
 import './style.scss';
 
-// import cuid from 'cuid';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
-const {
-	InnerBlocks,
-	useBlockProps,
-	InspectorControls,
-	// ColorPalette,
-} = wp.blockEditor;
-const { TextControl, Panel, PanelBody, PanelRow, Button } = wp.components;
-
-// const id = cuid();
+const { InnerBlocks, useBlockProps } = wp.blockEditor;
+const { Button } = wp.components;
 
 /**
  * Register: aa Gutenberg Block.
@@ -71,7 +63,7 @@ registerBlockType( 'scc/modal-popup', {
 	 * @param {Object} props Props.
 	 * @returns {Mixed} JSX Component.
 	 */
-	edit: ( { attributes, setAttributes } ) => {
+	edit: () => {
 		return (
 			<InnerBlocks
 				renderAppender={ InnerBlocks.ButtonBlockAppender }
@@ -90,13 +82,15 @@ registerBlockType( 'scc/modal-popup', {
 	 * @param {Object} props Props.
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
-	save: ( { attributes } ) => {
+	save: () => {
 		const blockProps = useBlockProps.save();
 
 		return (
 			<div { ...blockProps }>
 				<div className="scc-modal-popup__container">
-					<Button className="scc-modal-popup__close">Close</Button>
+					<div className="scc-modal-popup__close-container">
+						<Button className="scc-modal-popup__close" title="Close modal">X</Button>
+					</div>
 					<InnerBlocks.Content />
 				</div>
 			</div>

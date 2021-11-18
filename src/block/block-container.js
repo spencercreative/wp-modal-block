@@ -9,21 +9,10 @@
 import './editor.scss';
 import './style.scss';
 
-// import cuid from 'cuid';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
-const {
-	InnerBlocks,
-	useBlockProps,
-	InspectorControls,
-	MediaUpload,
-	MediaUploadCheck,
-	// ColorPalette,
-} = wp.blockEditor;
-const { TextControl, Panel, PanelBody, PanelRow, Button, ResponsiveWrapper } = wp.components;
+const { InnerBlocks, useBlockProps } = wp.blockEditor;
 const { Fragment } = wp.element;
-
-// const id = cuid();
 
 /**
  * Register: aa Gutenberg Block.
@@ -48,22 +37,6 @@ registerBlockType( 'scc/modal-container', {
 		__( 'popup', 'wp-modal-block' ),
 		__( 'window', 'wp-modal-block' ),
 	],
-	// attributes: {
-	// 	mediaId: {
-	// 		type: 'number',
-	// 		default: 0,
-	// 	},
-	// 	mediaUrl: {
-	// 		type: 'string',
-	// 		default: '',
-	// 	},
-	// 	header: {
-	// 		type: 'string',
-	// 		source: 'text',
-	// 		selector: 'button',
-	// 		default: 'Toggle modal',
-	// 	},
-	// },
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -77,8 +50,6 @@ registerBlockType( 'scc/modal-container', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: () => {
-		// const { attributes, setAttributes } = props;
-
 		const ALLOWED_BLOCKS = [ 'scc/modal-info', 'scc/modal-popup' ];
 
 		const TEMPLATE = [
@@ -86,69 +57,8 @@ registerBlockType( 'scc/modal-container', {
 			[ 'scc/modal-popup', { } ],
 		];
 
-		// const removeMedia = () => {
-		// 	setAttributes( {
-		// 		mediaId: 0,
-		// 		mediaUrl: '',
-		// 	} );
-		// };
-
-		// const onSelectMedia = ( media ) => {
-		// 	setAttributes( {
-		// 		mediaId: media.id,
-		// 		mediaUrl: media.url,
-		// 	} );
-		// };
-
 		return (
 			<Fragment>
-				{ /* <InspectorControls>
-					<PanelRow>
-						<div className="editor-post-featured-image">
-							<MediaUploadCheck>
-								<MediaUpload
-									onSelect={ onSelectMedia }
-									value={ attributes.mediaId }
-									allowedTypes={ [ 'image' ] }
-									render={ ( { open } ) => (
-										<Button
-											className={ attributes.mediaId === 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview' }
-											onClick={ open }
-										>
-											{ attributes.mediaId === 0 && __( 'Choose an image', 'wp-modal-block' ) }
-											{ props.media !== undefined && (
-												<ResponsiveWrapper
-													naturalWidth={ props.media.media_details.width }
-													naturalHeight={ props.media.media_details.height }
-												>
-													<img src={ props.media.source_url } alt="" />
-												</ResponsiveWrapper>
-											) }
-										</Button>
-									) }
-								/>
-							</MediaUploadCheck>
-							{ attributes.mediaId !== 0 &&
-								<MediaUploadCheck>
-									<MediaUpload
-										title={ __( 'Replace image', 'wp-modal-block' ) }
-										value={ attributes.mediaId }
-										onSelect={ onSelectMedia }
-										allowedTypes={ [ 'image' ] }
-										render={ ( { open } ) => (
-											<Button onClick={ open } isDefault isLarge>{ __( 'Replace image', 'wp-modal-block' ) }</Button>
-										) }
-									/>
-								</MediaUploadCheck>
-							}
-							{ attributes.mediaId !== 0 &&
-								<MediaUploadCheck>
-									<Button onClick={ removeMedia } isLink isDestructive>{ __( 'Remove image', 'wp-modal-block' ) }</Button>
-								</MediaUploadCheck>
-							}
-						</div>
-					</PanelRow>
-				</InspectorControls> */ }
 				<InnerBlocks
 					allowedBlocks={ ALLOWED_BLOCKS }
 					template={ TEMPLATE }
