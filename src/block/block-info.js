@@ -17,8 +17,9 @@ const {
 	InspectorControls,
 	// ColorPalette,
 } = wp.blockEditor;
-const { TextControl, PanelBody, PanelRow, Button } = wp.components;
+const { TextControl, PanelBody, PanelRow } = wp.components;
 const { Fragment } = wp.element;
+const { RichText } = wp.editor;
 
 /**
  * Register: aa Gutenberg Block.
@@ -118,7 +119,11 @@ registerBlockType( 'scc/modal-info', {
 		return (
 			<div { ...blockProps }>
 				<InnerBlocks.Content />
-				<Button className="scc-modal-info__open">{ attributes.buttonText }</Button>
+				<RichText.Content
+					tagName="button"
+					className="scc-modal-info__open"
+					value={ attributes.buttonText }
+				/>
 			</div>
 		);
 	},

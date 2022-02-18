@@ -1,6 +1,6 @@
 {
   "name": "modal-block-cgb-guten-block",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "start": "cgb-scripts start",
@@ -8,11 +8,11 @@
     "eject": "cgb-scripts eject"
   },
   "dependencies": {
-    "@wordpress/block-editor": "^8.0.3",
-    "@wordpress/blocks": "^11.1.4",
-    "@wordpress/components": "^19.0.3",
-    "@wordpress/i18n": "^4.2.4",
-    "@wordpress/icons": "^6.1.1",
+    "@wordpress/block-editor": "^8.1.1",
+    "@wordpress/blocks": "^11.2.1",
+    "@wordpress/components": "^19.4.0",
+    "@wordpress/i18n": "^4.3.1",
+    "@wordpress/icons": "^6.3.0",
     "cgb-scripts": "1.23.1",
     "react-dom": "^17.0.2"
   }

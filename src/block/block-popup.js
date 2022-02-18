@@ -12,7 +12,7 @@ import './style.scss';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { InnerBlocks, useBlockProps } = wp.blockEditor;
-const { Button } = wp.components;
+const { RichText } = wp.editor;
 
 /**
  * Register: aa Gutenberg Block.
@@ -89,7 +89,12 @@ registerBlockType( 'scc/modal-popup', {
 			<div { ...blockProps }>
 				<div className="scc-modal-popup__container">
 					<div className="scc-modal-popup__close-container">
-						<Button className="scc-modal-popup__close" title="Close modal">X</Button>
+						<RichText.Content
+							tagName="button"
+							className="scc-modal-popup__close"
+							title="Close modal"
+							value="X"
+						/>
 					</div>
 					<InnerBlocks.Content />
 				</div>
