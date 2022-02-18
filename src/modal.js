@@ -60,7 +60,16 @@ window.addEventListener( 'load', function() {
 } );
 
 function trapFocus( element ) {
+	if ( ! element ) {
+		return;
+	}
+
 	const focusableEls = element.querySelectorAll( 'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])' );
+
+	if ( ! focusableEls || focusableEls.length === 0 ) {
+		return;
+	}
+
 	const firstFocusableEl = focusableEls[ 0 ];
 	const lastFocusableEl = focusableEls[ focusableEls.length - 1 ];
 	const KEYCODE_TAB = 9;
